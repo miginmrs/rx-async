@@ -21,7 +21,7 @@ const iterate = async <V>(
     it.next(true).catch(noop);
   });
   while (!cancelled && !v.done) {
-    const pauser = getPauser?.();
+    const pauser = getPauser && getPauser();
     if (pauser) await pauser;
     else v = await it.next(false);
   }
