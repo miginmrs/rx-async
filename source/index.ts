@@ -10,7 +10,7 @@ export type Result<V> = Cancellable<V> | {
   ok: false; value?: undefined; error: unknown;
 };
 
-const iterate = async <V>(
+export const iterate = async <V>(
   it: AsyncIterator<void, V, boolean>,
   getPauser?: () => (PromiseLike<void> | void),
   onCancel?: (cb: () => void) => void,
@@ -28,9 +28,22 @@ const iterate = async <V>(
   return !cancelled && v.done ? { ok: true, value: v.value } : {};
 };
 
-type Config<V> = {
+/** Configuration for the mapper, V is the type of the output */
+export type Config<V> = {
+  /** @property {Function} handleException is invoked whenever the source observable throws an error,
+   * it optionally returns a value to be emitted */
   handleException?: (e: unknown) => Cancellable<V>;
+  /** @property {String} mode the mode used while subscribing to inner observables.
+   * accepts:
+   * * `merge`: emits results from mappers whenever they are ready
+   * * `switch`: cancels the current mappers at the reception of a new value 
+   * * `concurrent`: pauses the execution of actual mapper in favor to next one until then resumes its execution only when the newer fails
+   * * `recent`: just like concurrent it emits only the recent values but it doesn't pause the execution of any mapper
+   * @default 'concurrent'*/
   mode?: 'merge' | 'switch' | 'recent' | 'concurrent';
+  /** @property {bool} wait indicates whether the subscription to the source `Observable` should or not
+   * wait for the current async mapper to complete
+   * @default false */
   wait?: boolean;
 };
 

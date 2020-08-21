@@ -5,10 +5,10 @@ const webpack = require("webpack");
 const webpackRxjsExternals = require("webpack-rxjs-externals");
 
 module.exports = env => {
-  let filename = "rxjs-etc.umd.js";
+  let filename = "rx-async.umd.js";
   let mode = "development";
   if (env && env.production) {
-    filename = "rxjs-etc.min.umd.js";
+    filename = "rx-async.min.umd.js";
     mode = "production";
   }
   return {
