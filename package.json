@@ -1,0 +1,35 @@
+{
+  "name": "rx-async",
+  "version": "0.0.1",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "source": "./source",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miginmrs/rx-async.git"
+  },
+  "author": "miginmrs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miginmrs/rx-async/issues"
+  },
+  "homepage": "https://github.com/miginmrs/rx-async#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "peerDependencies": {
+    "rxjs": ">=6.0.0"
+  },
+  "unpkg": "./bundles/rx-async.min.umd.js",
+  "description": "rxjs operator for asynchronous mapping",
+  "keywords": [
+    "rxjs",
+    "async",
+    "map",
+    "switch",
+    "merge",
+    "promise",
+    "observable"
+  ]
+}
