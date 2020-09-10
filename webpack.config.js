@@ -2,21 +2,33 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const webpackRxjsExternals = require("webpack-rxjs-externals");
 
 module.exports = env => {
-  let filename = "rx-async.umd.js";
+  let filename = "rx-async.umd.js", devtool = {devtool: "source-map"};
   let mode = "development";
   if (env && env.production) {
     filename = "rx-async.min.umd.js";
     mode = "production";
+    devtool= {};
   }
   return {
+    ...devtool,
     context: path.join(__dirname, "./"),
     entry: {
       index: "./source/index.ts"
     },
-    externals: webpackRxjsExternals(),
+    externals: function (context, request, callback) {
+      if (request.match(/^rxjs(\/(operators|testing|ajax|webSocket|fetch|config|)|)$/)) {
+        var parts = request.split('/');
+        return callback(null, {
+          root: parts,
+          commonjs: request,
+          commonjs2: request,
+          amd: request
+        });
+      }
+      callback();
+    },
     mode,
     module: {
       rules: [
@@ -36,7 +48,7 @@ module.exports = env => {
     },
     output: {
       filename,
-      library: "rxjsEtc",
+      library: "rxAsync",
       libraryTarget: "umd",
       path: path.resolve(__dirname, "./bundles")
     },

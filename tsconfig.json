@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "noEmitHelpers": false,
     "outDir": "build",
-    "removeComments": true,
+    "removeComments": false,
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,

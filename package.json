@@ -1,10 +1,12 @@
 {
   "name": "rx-async",
-  "version": "0.0.1-SNAPSHOT-6",
+  "version": "0.0.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
+  "source": "./source",
   "sideEffects": false,
   "scripts": {
+    "push": "yarn run dist && node inc-version.js && npm publish",
     "dist": "yarn run dist:clean && yarn run dist:build && yarn run dist:copy",
     "dist:build": "yarn run dist:build:cjs && yarn run dist:build:esm && yarn run dist:build:bundle",
     "dist:build:bundle": "webpack --config webpack.config.js && webpack --config webpack.config.js --env.production",
@@ -17,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/miginmrs/rx-async.git"
   },
-  "author": "",
+  "author": "miginmrs",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/miginmrs/rx-async/issues"
@@ -27,18 +29,26 @@
     "lib": "lib"
   },
   "peerDependencies": {
-    "rxjs": "^6.0.0"
+    "rxjs": ">=6.0.0"
   },
   "unpkg": "./bundles/rx-async.min.umd.js",
-  "description": "",
+  "description": "rxjs operator for asynchronous mapping",
   "devDependencies": {
     "cpy-cli": "^3.1.1",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.0",
+    "rxjs": ">=6.0.0",
     "ts-loader": "^8.0.1",
     "typescript": "^3.9.7",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-rxjs-externals": "^2.0.0"
-  }
+    "webpack-cli": "^3.3.12"
+  },
+  "keywords": [
+    "rxjs",
+    "async",
+    "map",
+    "switch",
+    "merge",
+    "promise",
+    "observable"
+  ]
 }
